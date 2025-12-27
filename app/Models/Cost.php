@@ -9,6 +9,7 @@ class Cost extends Model
     protected $fillable = [
         'wallet_id',
         'category_id',
+        'user_id',
         'debit',
         'credit',
         'balance',
