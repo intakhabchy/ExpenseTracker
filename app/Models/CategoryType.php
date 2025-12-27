@@ -10,4 +10,9 @@ class CategoryType extends Model
         'category_type_name',
         'created_by',
     ];
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

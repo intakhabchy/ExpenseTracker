@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->belongsTo(CategoryType::class, 'category_type_id');
     }
+
+    public function costs()
+    {
+        return $this->hasMany(Cost::class);
+    }
 }

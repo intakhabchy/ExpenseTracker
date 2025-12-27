@@ -10,4 +10,9 @@ class Currency extends Model
         'currency_name',
         'created_by',
     ];
+
+    public function wallets()
+    {
+        return $this->hasMany(Wallet::class);
+    }
 }
