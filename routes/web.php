@@ -25,6 +25,7 @@ Route::get('/currencies', [App\Http\Controllers\CurrencyController::class, 'inde
 
 Route::get('/wallets', [App\Http\Controllers\WalletController::class, 'index'])->name('wallets.index');
 Route::post('/wallets', [App\Http\Controllers\WalletController::class, 'store'])->name('wallets.store');
+Route::get('/walletByUser/{user_id}', [App\Http\Controllers\WalletController::class, 'walletByUser'])->name('walletByUser');
 
 Route::get('/costs', [App\Http\Controllers\CostController::class, 'index'])->name('costs.index');
 
