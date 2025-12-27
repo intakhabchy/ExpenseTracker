@@ -13,7 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('category')->insert([
+        DB::table('categories')->insert([
             ['category_type_id' => 1, 'category_name' => 'Food', 'created_by' => 1],
             ['category_type_id' => 1, 'category_name' => 'Transport', 'created_by' => 1],
             ['category_type_id' => 1, 'category_name' => 'Utilities', 'created_by' => 1],
