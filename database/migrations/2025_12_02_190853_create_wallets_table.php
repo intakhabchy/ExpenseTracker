@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wallet', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->id();
             $table->string('wallet_name');
             $table->unsignedBigInteger('currency_id');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('currency_id')->references('id')->on('currency');
+            $table->foreign('currency_id')->references('id')->on('currencies');
         });
     }
 

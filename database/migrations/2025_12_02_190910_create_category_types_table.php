@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('category_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_type_id');
-            $table->string('category_name');
+            $table->string('category_type_name');
             $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
-
-            $table->foreign('category_type_id')->references('id')->on('category_type');
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('category_type');
     }
 };

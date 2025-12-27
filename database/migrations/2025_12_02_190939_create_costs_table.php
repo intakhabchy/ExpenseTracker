@@ -11,12 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('currency', function (Blueprint $table) {
+        Schema::create('costs', function (Blueprint $table) {
             $table->id();
-            $table->string('currency_name');
+
+            $table->unsignedBigInteger('wallet_id');
+            $table->unsignedBigInteger('category_id');
+
+            $table->decimal('debit', 15, 2)->default(0);
+            $table->decimal('credit', 15, 2)->default(0);
+            $table->decimal('balance', 15, 2)->default(0);
+
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
+
+            $table->foreign('wallet_id')->references('id')->on('wallets');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -25,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('currency');
+        Schema::dropIfExists('cost');
     }
 };
