@@ -24,14 +24,21 @@ class CostController extends Controller
             'created_by' => 'required|exists:users,id',
         ]);
 
-        if ($request->filled('debit') && $request->filled('credit')) {
+        if (!$request->filled('debit') && !$request->filled('credit')) {
             return response()->json([
-                'message' => 'Only one of debit or credit is allowed'
+                'message' => 'Either debit or credit is required'
             ], 422);
         }
 
         $lastBalance = Cost::calculateBalance($validatedData['wallet_id']);
         $newBalance = $lastBalance + ($validatedData['credit'] ?? 0) - ($validatedData['debit'] ?? 0);
+
+        if ($newBalance < 0) {
+            return response()->json([
+                'message' => 'Insufficient balance'
+            ], 422);
+        }
+        
         $validatedData['balance'] = $newBalance;
 
         $cost = Cost::create($validatedData);
