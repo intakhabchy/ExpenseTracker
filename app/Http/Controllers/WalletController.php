@@ -9,7 +9,7 @@ class WalletController extends Controller
 {
     public function index()
     {
-        $wallets = Wallet::with(['currency','user'])->get();
+        $wallets = Wallet::with(['currency','user','creator'])->get();
         return response()->json($wallets);
     }
 
@@ -27,9 +27,14 @@ class WalletController extends Controller
         return response()->json($wallet, 201);
     }
 
-    public function walletByUser($userId)
+    public function walletByUser(Request $request)
     {
-        $wallets = Wallet::where('user_id', $userId)->with(['user','currency'])->get();
+        $userId = $request->user()->id; // get currently authenticated user
+
+        $wallets = Wallet::with(['currency','user','creator'])
+            ->where('user_id', $userId)
+            ->get();
+
         return response()->json($wallets);
     }
 }

@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/wallets', [App\Http\Controllers\WalletController::class, 'index'])->name('wallets.index');
     Route::post('/wallets', [App\Http\Controllers\WalletController::class, 'store'])->name('wallets.store');
-    Route::get('/walletByUser/{user_id}', [App\Http\Controllers\WalletController::class, 'walletByUser'])->name('walletByUser');
+    Route::get('/walletByUser', [App\Http\Controllers\WalletController::class, 'walletByUser'])->name('walletByUser');
 
     Route::get('/costs', [App\Http\Controllers\CostController::class, 'index'])->name('costs.index');
     Route::post('/costs', [App\Http\Controllers\CostController::class, 'store'])->name('costs.store');
