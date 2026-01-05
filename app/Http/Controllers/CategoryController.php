@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('type')->get();
+        $categories = Category::with(['type','user'])->get();
         return response()->json($categories);
     }
     
