@@ -29,7 +29,7 @@ class WalletController extends Controller
 
     public function walletByUser($userId)
     {
-        $wallets = Wallet::where('user_id', $userId)->with('currency')->get();
+        $wallets = Wallet::where('user_id', $userId)->with(['user','currency'])->get();
         return response()->json($wallets);
     }
 }
