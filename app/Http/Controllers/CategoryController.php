@@ -18,8 +18,11 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'category_name' => 'required|string|max:255',
             'category_type_id' => 'required|exists:category_types,id',
-            'created_by' => 'required|exists:users,id',
         ]);
+
+        $userId = $request->user()->id; // get currently authenticated user
+
+        $validated['created_by'] = $userId;
 
         $category = Category::create($validated);
 
