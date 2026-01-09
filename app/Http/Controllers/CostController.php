@@ -18,12 +18,15 @@ class CostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required|exists:users,id',
             'wallet_id' => 'required|exists:wallets,id',
             'category_id' => 'required|exists:categories,id',
             'amount'=> 'nullable|numeric',    
-            'created_by' => 'required|exists:users,id',
         ]);
+
+        $userId = $request->user()->id; // get currently authenticated user
+
+        $validatedData['user_id'] = $userId;
+        $validatedData['created_by'] = $userId;
 
         $category_type_id = Category::where('id', $validatedData['category_id'])->value('category_type_id');
 
