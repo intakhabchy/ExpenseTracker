@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Cost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +21,23 @@ class CostController extends Controller
             'user_id' => 'required|exists:users,id',
             'wallet_id' => 'required|exists:wallets,id',
             'category_id' => 'required|exists:categories,id',
-            'debit'=> 'nullable|numeric',
-            'credit'=> 'nullable|numeric',    
+            'amount'=> 'nullable|numeric',    
             'created_by' => 'required|exists:users,id',
         ]);
 
-        if ($request->filled('debit') && $request->filled('credit')) {
-            return response()->json(['message' => 'Only one of debit or credit is allowed'], 422);
+        $category_type_id = Category::where('id', $validatedData['category_id'])->value('category_type_id');
+
+        $debit = 0;
+        $credit = 0;
+        if($category_type_id == 1){ // expense
+            $debit = $request->input('amount');
+        }
+        else if($category_type_id == 2){    // income
+            $credit = $request->input('amount');
         }
 
-        if (!$request->filled('debit') && !$request->filled('credit')) {
-            return response()->json(['message' => 'Either debit or credit is required'], 422);
-        }
+        $validatedData['debit'] = $debit;
+        $validatedData['credit'] = $credit;
 
         return DB::transaction(function () use ($validatedData) {
 
