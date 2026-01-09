@@ -11,7 +11,7 @@ class CostController extends Controller
 {
     public function index()
     {
-        $costs = Cost::with('wallet','category')->get();
+        $costs = Cost::with('wallet','category')->orderBy('created_at','desc')->get();
         return response()->json($costs);
     }
 
