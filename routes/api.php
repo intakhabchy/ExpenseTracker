@@ -31,6 +31,7 @@ Route::post('/api-token-login', function(Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index')->middleware('auth:sanctum');
+    Route::get('/categories/{id}', [App\Http\Controllers\CategoryController::class, 'categoryById'])->name('categories.categoryById')->middleware('auth:sanctum');
     Route::post('/categories', [App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
 
     Route::get('/categorytypes', [App\Http\Controllers\CategoryTypeController::class, 'index'])->name('categorytypes.index');

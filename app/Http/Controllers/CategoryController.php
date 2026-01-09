@@ -28,4 +28,10 @@ class CategoryController extends Controller
 
         return response()->json($category, 201);
     }
+
+    public function categoryById($id)
+    {
+        $category = Category::with(['type'])->findOrFail($id);
+        return response()->json($category);
+    }
 }
