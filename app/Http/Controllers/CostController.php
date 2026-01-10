@@ -15,6 +15,16 @@ class CostController extends Controller
         return response()->json($costs);
     }
 
+    public function costByUser(Request $request)
+    {
+        $userId = $request->user()->id;
+        $costs = Cost::with('wallet','category')
+            ->where('user_id', $userId)
+            ->orderBy('created_at','desc')
+            ->get();
+        return response()->json($costs);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([

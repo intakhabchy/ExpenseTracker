@@ -59,6 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/walletByUser', [App\Http\Controllers\WalletController::class, 'walletByUser'])->name('walletByUser');
 
     Route::get('/costs', [App\Http\Controllers\CostController::class, 'index'])->name('costs.index');
+    Route::get('/costByUser', [App\Http\Controllers\CostController::class, 'costByUser'])->name('costByUser');
     Route::post('/costs', [App\Http\Controllers\CostController::class, 'store'])->name('costs.store');
 });
-
