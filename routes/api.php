@@ -29,6 +29,22 @@ Route::post('/api-token-login', function(Request $request) {
     ]);
 });
 
+Route::post('/user_registration', function(Request $request) {
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6',
+    ]);
+
+    $user = User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => Hash::make($validated['password']),
+    ]);
+
+    return response()->json($user, 201);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index')->middleware('auth:sanctum');
     Route::get('/categories/{id}', [App\Http\Controllers\CategoryController::class, 'categoryById'])->name('categories.categoryById')->middleware('auth:sanctum');
